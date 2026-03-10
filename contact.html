@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Andrea Gioia</title>
+    <title>Contatti | Andrea Gioia</title>
     <style>
         /* =========================================
            CSS: DESIGN SYSTEM & RESET (Tema Luminoso)
-           (Da spostare in css/style.css)
+           NOTA: Se hai già creato style.css, puoi 
+                 cancellare questo blocco e usare <link>
            ========================================= */
         :root {
-            --bg-color: #f4f5f7; /* Grigio chiarissimo, quasi bianco, riduce l'affaticamento */
-            --surface-color: #ffffff; /* Bianco puro per far risaltare le card */
-            --text-main: #1a1a1a; /* Antracite scuro (mai usare #000 su #fff) */
-            --text-muted: #5a5a66; /* Grigio medio per descrizioni */
-            --accent-color: #ff5e00; /* Arancione vibrante, deciso, energetico */
+            --bg-color: #f4f5f7;
+            --surface-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #5a5a66;
+            --accent-color: #ff5e00;
             --accent-glow: rgba(255, 94, 0, 0.15);
-            --border-color: #e5e7eb; /* Bordi tenui */
-            --tag-bg: rgba(255, 94, 0, 0.08); /* Sfondo arancione molto trasparente per i tag */
+            --border-color: #e5e7eb;
+            --tag-bg: rgba(255, 94, 0, 0.08);
             --font-mono: 'Courier New', Courier, monospace;
             --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
@@ -33,15 +34,14 @@
             line-height: 1.6;
         }
 
-        /* --- LAYOUT PRINCIPALE --- */
         #main-content {
             flex-grow: 1;
             padding: 4rem;
-            margin-left: 280px; /* Spazio per la sidebar fissa */
+            margin-left: 280px;
             max-width: 1200px;
         }
 
-        /* --- STILI SIDEBAR (WEB COMPONENT) --- */
+        /* --- STILI SIDEBAR --- */
         sidebar-menu {
             position: fixed;
             top: 0;
@@ -101,7 +101,7 @@
             font-family: var(--font-mono);
         }
 
-        /* --- TIPOGRAFIA E COMPONENTI --- */
+        /* --- STILI SPECIFICI PAGINA CONTATTI --- */
         h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -119,62 +119,69 @@
             margin-bottom: 3rem;
         }
 
-        .grid-cards {
+        .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
+            margin-bottom: 4rem;
         }
 
-        .card {
-            display: block; /* AGGIUNTO: fondamentale perché la card ora è un link <a> */
-            text-decoration: none; /* AGGIUNTO: toglie la sottolineatura blu brutta */
+        .contact-card {
+            display: flex;
+            flex-direction: column;
             background-color: var(--surface-color);
             padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            text-decoration: none;
+            color: var(--text-main);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            position: relative; 
         }
 
-        .card:hover {
+        .contact-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-color);
             box-shadow: 0 10px 25px rgba(255, 94, 0, 0.1);
         }
 
-        .card h3 {
-            font-size: 1.5rem;
+        .contact-card .icon {
+            font-size: 2rem;
             margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-main);
-        }
-
-        .card p { color: var(--text-muted); font-size: 0.95rem; }
-        
-        .tag {
-            display: inline-block;
-            background: var(--tag-bg);
             color: var(--accent-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: all 0.3s ease; 
+            word-break: break-all; /* Evita che l'email scombini il layout */
         }
 
-        /* Modifica hover: ora quando passi sopra l'INTERA card, il tag si illumina */
-        .card:hover .tag {
-            background-color: var(--accent-color);
-            color: var(--surface-color);
-            transform: translateY(-2px);
+        .status-box {
+            background-color: var(--surface-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        /* --- RESPONSIVE DESIGN (Regola IUM) --- */
+        .status-box p {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        
+        .status-box strong {
+            color: var(--text-main);
+            font-family: var(--font-sans);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
             body { flex-direction: column; }
             sidebar-menu {
@@ -194,55 +201,61 @@
 </head>
 <body>
 
-    <!-- 
-      Questo è il Custom Element. In futuro, in qualsiasi pagina HTML ti 
-      basterà scrivere <sidebar-menu></sidebar-menu> per avere la navigazione.
-    -->
+    <!-- Il Web Component della Sidebar -->
     <sidebar-menu></sidebar-menu>
 
     <!-- CONTENUTO PRINCIPALE DELLA PAGINA -->
     <main id="main-content">
         <header>
-            <!-- Una citazione sottile allo Status/Impero (Marracash/Gue vibes) ma in chiave dev -->
-            <h1>Costruisco <span class="highlight">sistemi</span>,<br>non solo codice.</h1>
+            <h1>Iniziamo a <span class="highlight">collaborare</span>.</h1>
             <p class="subtitle">
-                Studente universitario in Internet of Things, Big Data & Machine Learning. 
-                Esperienza pregressa come Sviluppatore Software (9 mesi).
+                Che si tratti di un progetto IoT, di un'analisi dati complessa o di ingegnerizzare un sistema da zero, sono sempre pronto per la prossima sfida. Niente fronzoli, parliamo di esecuzione.
             </p>
         </header>
 
         <section>
-            <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">In Evidenza</h2>
-            <div class="grid-cards">
+            <div class="contact-grid">
                 
-                <!-- Card Progetto -->
-                <a href="projects/vibe-manager.html" target="_blank" class="card">
-                    <h3>Vibe Manager <span>⚡</span></h3>
-                    <p>Un sistema IoT distribuito per il monitoraggio e la gestione ambientale. Architettura basata su Raspberry Pi 5 come nodo centrale, ZimaBoard per l'elaborazione dati e Pi Zero come sensori edge.</p>
-                    <span class="tag">Hardware & C/Python</span>
+                <!-- Email Card -->
+                <a href="mailto:andreagioia.me@gmail.com" class="contact-card">
+                    <div class="icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>andreagioia.me@gmail.com</p>
                 </a>
 
-                <!-- Card Esami/Analisi -->
-                <a href="projects/hci-research.html" target="_blank" class="card">
-                    <h3>Human-Computer Interaction <span>🧠</span></h3>
-                    <p>Applicazione dei principi di usabilità (Nielsen), design responsivo e psicologia cognitiva allo sviluppo di interfacce utente. Come la mente umana processa le informazioni a schermo.</p>
-                    <span class="tag">UX/UI Research</span>
+                <!-- LinkedIn Card -->
+                <a href="https://www.linkedin.com/in/andrea-gioia-84a7b7256/" target="_blank" class="contact-card">
+                    <div class="icon">💼</div>
+                    <h3>LinkedIn</h3>
+                    <p>https://www.linkedin.com/in/andrea-gioia-84a7b7256/</p>
                 </a>
 
+                <!-- GitHub Card -->
+                <a href="https://github.com/andreagioiaa" target="_blank" class="contact-card">
+                    <div class="icon">🐙</div>
+                    <h3>GitHub</h3>
+                    <p>github.com/andreagioiaa</p>
+                </a>
+
+            </div>
+
+            <!-- Box di stato (Vibe Check) -->
+            <div class="status-box">
+                <p><strong>[SYS_STATUS]:</strong> Attualmente concentrato per lo più sul completamento degli studi accademici. 
+                Disponibile per collaborazioni mirate, consulenze su architetture distribuite o discussioni su design system e IUM.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">📍 Base operativa: Cormons (GO) - Remoto disponibile.</p>
             </div>
         </section>
     </main>
 
     <script>
         /* =========================================
-           JAVASCRIPT: COMPONENTI & LOGICA
-           (Da spostare in js/main.js)
+           JAVASCRIPT: WEB COMPONENT SIDEBAR
+           NOTA: Se hai già main.js, cancella questo 
+                 blocco e usa <script src="js/main.js">
            ========================================= */
-        
-        // 1. Definiamo la classe per il nostro Web Component personalizzato
         class SidebarMenu extends HTMLElement {
             connectedCallback() {
-                // Otteniamo il nome della pagina attuale per evidenziare il link attivo
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
 
                 this.innerHTML = `
@@ -251,7 +264,7 @@
                         <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
                         <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
                         <li><a href="blog.html" class="${currentPage === 'blog.html' ? 'active' : ''}">Blog / Appunti</a></li>
-                        <li><a href="contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}">Contatti</a></li>
+                        <li><a href="contact.html" class="${currentPage === 'contact.html' || currentPage === '' ? 'active' : ''}">Contatti</a></li>
                     </ul>
                     <div class="sidebar-footer">
                         <p>📍 Cormons (GO)</p>
@@ -260,10 +273,11 @@
                 `;
             }
         }
-
-        // 2. Registriamo il componente nel browser
-        // Ora il tag <sidebar-menu> funzionerà in modo nativo!
-        customElements.define('sidebar-menu', SidebarMenu);
+        
+        // Evita errori se il componente è già stato definito da un altro script globale
+        if (!customElements.get('sidebar-menu')) {
+            customElements.define('sidebar-menu', SidebarMenu);
+        }
     </script>
 </body>
 </html>
