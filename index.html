@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Status & Code</title>
+    <title>Portfolio | Andrea Gioia</title>
     <style>
         /* =========================================
-           CSS: DESIGN SYSTEM & RESET
+           CSS: DESIGN SYSTEM & RESET (Tema Luminoso)
            (Da spostare in css/style.css)
            ========================================= */
         :root {
-            --bg-color: #0a0a0c;
-            --surface-color: #16161a;
-            --text-main: #fffffe;
-            --text-muted: #94a1b2;
-            --accent-color: #7f5af0; /* Viola tech, perfetto per il Vibe Manager */
-            --accent-glow: rgba(127, 90, 240, 0.4);
-            --border-color: #2cb67d; /* Verde hacker/matrix */
+            --bg-color: #f4f5f7; /* Grigio chiarissimo, quasi bianco, riduce l'affaticamento */
+            --surface-color: #ffffff; /* Bianco puro per far risaltare le card */
+            --text-main: #1a1a1a; /* Antracite scuro (mai usare #000 su #fff) */
+            --text-muted: #5a5a66; /* Grigio medio per descrizioni */
+            --accent-color: #ff5e00; /* Arancione vibrante, deciso, energetico */
+            --accent-glow: rgba(255, 94, 0, 0.15);
+            --border-color: #e5e7eb; /* Bordi tenui */
+            --tag-bg: rgba(255, 94, 0, 0.08); /* Sfondo arancione molto trasparente per i tag */
             --font-mono: 'Courier New', Courier, monospace;
             --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
@@ -48,7 +49,7 @@
             width: 280px;
             height: 100vh;
             background-color: var(--surface-color);
-            border-right: 1px solid #222;
+            border-right: 1px solid var(--border-color);
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
@@ -87,8 +88,8 @@
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--text-main);
-            background-color: rgba(127, 90, 240, 0.1);
+            color: var(--accent-color);
+            background-color: var(--tag-bg);
             transform: translateX(5px);
             box-shadow: -3px 0 0 var(--accent-color);
         }
@@ -128,13 +129,15 @@
             background-color: var(--surface-color);
             padding: 2rem;
             border-radius: 12px;
-            border: 1px solid #222;
-            transition: transform 0.3s, border-color 0.3s;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: var(--border-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 25px rgba(255, 94, 0, 0.1);
         }
 
         .card h3 {
@@ -143,19 +146,30 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: var(--text-main);
         }
 
         .card p { color: var(--text-muted); font-size: 0.95rem; }
         
         .tag {
             display: inline-block;
-            background: rgba(44, 182, 125, 0.1);
-            color: var(--border-color);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
+            background: var(--tag-bg);
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
             font-family: var(--font-mono);
             font-size: 0.8rem;
+            font-weight: 600;
             margin-top: 1rem;
+            text-decoration: none; /* Aggiunto per rimuovere la sottolineatura dei link */
+            transition: all 0.3s ease; /* Aggiunto per ammorbidire l'effetto hover */
+        }
+
+        /* Nuovo blocco CSS: Effetto interattivo per i tag cliccabili */
+        a.tag:hover {
+            background-color: var(--accent-color);
+            color: var(--surface-color);
+            transform: translateY(-2px);
         }
 
         /* --- RESPONSIVE DESIGN (Regola IUM) --- */
@@ -167,7 +181,7 @@
                 position: relative;
                 padding: 1rem;
                 border-right: none;
-                border-bottom: 1px solid #222;
+                border-bottom: 1px solid var(--border-color);
             }
             .brand-logo { margin-bottom: 1rem; }
             .nav-links { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
@@ -190,7 +204,7 @@
             <!-- Una citazione sottile allo Status/Impero (Marracash/Gue vibes) ma in chiave dev -->
             <h1>Costruisco <span class="highlight">sistemi</span>,<br>non solo codice.</h1>
             <p class="subtitle">
-                Studente universitario in Internet of Things, Big Data & Machine Learning.
+                Studente universitario in Internet of Things, Big Data & Machine Learning. 
                 Esperienza pregressa come Sviluppatore Software (9 mesi).
             </p>
         </header>
@@ -203,14 +217,14 @@
                 <article class="card">
                     <h3>Vibe Manager <span>⚡</span></h3>
                     <p>Un sistema IoT distribuito per il monitoraggio e la gestione ambientale. Architettura basata su Raspberry Pi 5 come nodo centrale, ZimaBoard per l'elaborazione dati e Pi Zero come sensori edge.</p>
-                    <span class="tag">Hardware & C/Python</span>
+                    <a href="projects/vibe-manager.html" target="_blank" class="tag">Hardware & C/Python</a>
                 </article>
 
                 <!-- Card Esami/Analisi -->
                 <article class="card">
                     <h3>Human-Computer Interaction <span>🧠</span></h3>
                     <p>Applicazione dei principi di usabilità (Nielsen), design responsivo e psicologia cognitiva allo sviluppo di interfacce utente. Come la mente umana processa le informazioni a schermo.</p>
-                    <span class="tag">UX/UI Research</span>
+                    <a href="projects/hci-research.html" target="_blank" class="tag">UX/UI Research</a>
                 </article>
 
             </div>
@@ -230,7 +244,7 @@
                 const currentPage = window.location.pathname.split("/").pop() || "index.html";
 
                 this.innerHTML = `
-                    <a href="index.html" class="brand-logo">Andrea<span> </span>Gioia</a>
+                    <a href="index.html" class="brand-logo">Andrea <span>Gioia</span></a>
                     <ul class="nav-links">
                         <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
                         <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
