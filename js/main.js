@@ -12,7 +12,7 @@ class SidebarMenu extends HTMLElement {
             <a href="index.html" class="brand-logo">Andrea <span>Gioia</span></a>
             <ul class="nav-links">
                 <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
-                <li><a href="chi-sono.html" class="${currentPage === 'chi-sono.html' ? 'active' : ''}">Chi Sono</a></li>
+                <li><a href="chi-sono.html" class="${currentPage === 'chi_sono.html' ? 'active' : ''}">Chi Sono</a></li>
                 <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
                 <li><a href="contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}">Contatti</a></li>
             </ul>
