@@ -4,200 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contatti | Andrea Gioia</title>
-    <style>
-        /* =========================================
-           CSS: DESIGN SYSTEM & RESET (Tema Luminoso)
-           NOTA: Se hai già creato style.css, puoi 
-                 cancellare questo blocco e usare <link>
-           ========================================= */
-        :root {
-            --bg-color: #f4f5f7;
-            --surface-color: #ffffff;
-            --text-main: #1a1a1a;
-            --text-muted: #5a5a66;
-            --accent-color: #ff5e00;
-            --accent-glow: rgba(255, 94, 0, 0.15);
-            --border-color: #e5e7eb;
-            --tag-bg: rgba(255, 94, 0, 0.08);
-            --font-mono: 'Courier New', Courier, monospace;
-            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        #main-content {
-            flex-grow: 1;
-            padding: 4rem;
-            margin-left: 280px;
-            max-width: 1200px;
-        }
-
-        /* --- STILI SIDEBAR --- */
-        sidebar-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100vh;
-            background-color: var(--surface-color);
-            border-right: 1px solid var(--border-color);
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-        }
-
-        .brand-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 3rem;
-            color: var(--text-main);
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .brand-logo span { color: var(--accent-color); }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-color);
-            background-color: var(--tag-bg);
-            transform: translateX(5px);
-            box-shadow: -3px 0 0 var(--accent-color);
-        }
-
-        .sidebar-footer {
-            margin-top: auto;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-        }
-
-        /* --- STILI SPECIFICI PAGINA CONTATTI --- */
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            letter-spacing: -1.5px;
-        }
-
-        h1 .highlight { color: var(--accent-color); text-shadow: 0 0 20px var(--accent-glow); }
-
-        p.subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 3rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .contact-card {
-            display: flex;
-            flex-direction: column;
-            background-color: var(--surface-color);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            text-decoration: none;
-            color: var(--text-main);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 25px rgba(255, 94, 0, 0.1);
-        }
-
-        .contact-card .icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-
-        .contact-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-family: var(--font-mono);
-            word-break: break-all; /* Evita che l'email scombini il layout */
-        }
-
-        .status-box {
-            background-color: var(--surface-color);
-            border-left: 4px solid var(--accent-color);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-
-        .status-box p {
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-        
-        .status-box strong {
-            color: var(--text-main);
-            font-family: var(--font-sans);
-        }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            sidebar-menu {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding: 1rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
-            .brand-logo { margin-bottom: 1rem; }
-            .nav-links { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
-            #main-content { margin-left: 0; padding: 2rem 1rem; }
-            h1 { font-size: 2.5rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -207,10 +14,7 @@
     <!-- CONTENUTO PRINCIPALE DELLA PAGINA -->
     <main id="main-content">
         <header>
-            <h1>Iniziamo a <span class="highlight">collaborare</span>.</h1>
-            <p class="subtitle">
-                Che si tratti di un progetto IoT, di un'analisi dati complessa o di ingegnerizzare un sistema da zero, sono sempre pronto per la prossima sfida. Niente fronzoli, parliamo di esecuzione.
-            </p>
+            <h1>I miei <span class="highlight">contatti</span>.</h1>
         </header>
 
         <section>
@@ -218,66 +22,49 @@
                 
                 <!-- Email Card -->
                 <a href="mailto:andreagioia.me@gmail.com" class="contact-card">
-                    <div class="icon">✉️</div>
+                    <div class="icon">
+                        <!-- SVG Inline: eredita automaticamente il colore dell'icona tramite fill="currentColor" -->
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </div>
                     <h3>Email</h3>
-                    <p>andreagioia.me@gmail.com</p>
+                    <!-- <p>andreagioia.me@gmail.com</p> -->
                 </a>
 
                 <!-- LinkedIn Card -->
                 <a href="https://www.linkedin.com/in/andrea-gioia-84a7b7256/" target="_blank" class="contact-card">
-                    <div class="icon">💼</div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-1.85 0-2.59 1.02-3.04 1.68v-1.44h-2.8v8.32h2.8v-4.63c0-.24.04-.48.11-.65.19-.48.63-.98 1.36-.98.96 0 1.34.73 1.34 1.8v4.46h2.8M6.88 8.56a1.62 1.62 0 0 0 0-3.24 1.62 1.62 0 0 0 0 3.24m1.4 10.44V10.68H5.48v8.32h2.8z"/>
+                        </svg>
+                    </div>
                     <h3>LinkedIn</h3>
-                    <p>https://www.linkedin.com/in/andrea-gioia-84a7b7256/</p>
+                    <!-- <p>linkedin.com/in/andrea-gioia-84a7b7256/</p> -->
                 </a>
 
                 <!-- GitHub Card -->
                 <a href="https://github.com/andreagioiaa" target="_blank" class="contact-card">
-                    <div class="icon">🐙</div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                        </svg>
+                    </div>
                     <h3>GitHub</h3>
-                    <p>github.com/andreagioiaa</p>
+                    <!-- <p>github.com/andreagioiaa</p> -->
                 </a>
+
 
             </div>
 
-            <!-- Box di stato (Vibe Check) -->
             <div class="status-box">
-                <p><strong>[SYS_STATUS]:</strong> Attualmente concentrato per lo più sul completamento degli studi accademici. 
-                Disponibile per collaborazioni mirate, consulenze su architetture distribuite o discussioni su design system e IUM.</p>
+                <p><strong>[INFORMAZIONI IMPORTANTI]:</strong> Attualmente concentrato per lo più sul completamento degli studi accademici. 
+                Disponibile per collaborazioni mirate e progetti a breve termine.</p>
                 <p style="margin-top: 0.5rem; font-size: 0.85rem;">📍 Base operativa: Cormons (GO) - Remoto disponibile.</p>
             </div>
         </section>
     </main>
 
-    <script>
-        /* =========================================
-           JAVASCRIPT: WEB COMPONENT SIDEBAR
-           NOTA: Se hai già main.js, cancella questo 
-                 blocco e usa <script src="js/main.js">
-           ========================================= */
-        class SidebarMenu extends HTMLElement {
-            connectedCallback() {
-                const currentPage = window.location.pathname.split("/").pop() || "index.html";
-
-                this.innerHTML = `
-                    <a href="index.html" class="brand-logo">Andrea <span>Gioia</span></a>
-                    <ul class="nav-links">
-                        <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
-                        <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
-                        <li><a href="blog.html" class="${currentPage === 'blog.html' ? 'active' : ''}">Blog / Appunti</a></li>
-                        <li><a href="contact.html" class="${currentPage === 'contact.html' || currentPage === '' ? 'active' : ''}">Contatti</a></li>
-                    </ul>
-                    <div class="sidebar-footer">
-                        <p>📍 Cormons (GO)</p>
-                        <p>Sys.Status: ONLINE</p>
-                    </div>
-                `;
-            }
-        }
-        
-        // Evita errori se il componente è già stato definito da un altro script globale
-        if (!customElements.get('sidebar-menu')) {
-            customElements.define('sidebar-menu', SidebarMenu);
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
