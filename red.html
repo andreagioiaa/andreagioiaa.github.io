@@ -3,28 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Sono | Andrea Gioia</title>
+    <title>R&D Personale | Andrea Gioia</title>
     <link rel="stylesheet" href="CSS/style.css?v=1.1">
+    
+    <style>
+        /* Regola essenziale per i link dentro la about-list */
+        .about-list a {
+            color: inherit; /* Mantiene il grigio --text-muted */
+            text-decoration: none; /* Toglie la sottolineatura di default */
+            display: inline-block; /* Permette il transform senza rompere il layout */
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        /* Feedback visivo deciso al passaggio del mouse */
+        .about-list a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px); /* Piccolo scatto in avanti, coerente con la sidebar */
+        }
+    </style>
 </head>
 <body>
 
-    <!-- 
-      Questo è il Custom Element. In futuro, in qualsiasi pagina HTML ti 
-      basterà scrivere <sidebar-menu></sidebar-menu> per avere la navigazione.
-    -->
     <sidebar-menu></sidebar-menu>
 
-    <!-- CONTENUTO PRINCIPALE DELLA PAGINA -->
     <main id="main-content">
         <header>
             <h1><span class="highlight">Ricerca</span> e <span class="highlight">Sviluppo</span> Personale.</h1>
+            
             <ul class="about-list">
-                <li>Gestione squadra <b>ASD ROUBIS</b> per i tornei estivi</li>
-                <li>Attiva partecipazione a tornei virtuali calcistici in EAFC e FIFA come <b>BeSports</b> nel 2023 rappresentando l'FC Südtirol</li>
+                <li>
+                    <a href="red/asdroubis.html">
+                        Gestione squadra <b>ASD ROUBIS</b> per i tornei estivi e per la parte social.
+                    </a>
+                </li>
+                <li>
+                    <a href="red/besports_2023.html">
+                        Attiva partecipazione a tornei virtuali calcistici in EAFC e FIFA come <b>BeSports</b> nel 2023 rappresentando l'FC Südtirol.
+                    </a>
+                </li>
             </ul>
         </header>
 
-        
     </main>
 
     <script src="js/main.js"></script>

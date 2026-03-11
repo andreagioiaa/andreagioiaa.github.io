@@ -6,17 +6,24 @@
 // 1. COMPONENTE: SIDEBAR MENU
 class SidebarMenu extends HTMLElement {
     connectedCallback() {
+        // Estrae il nome del file corrente
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        
+        // Controlla se siamo all'interno della sezione R&D
+        const isRedSection = window.location.pathname.includes('/red/');
+
+        // Legge l'attributo personalizzato. Se non c'è, usa una stringa vuota
+        const basePath = this.getAttribute('base-path') || '';
 
         this.innerHTML = `
-            <a href="index.html" class="brand-logo">Andrea <span>Gioia</span></a>
+            <a href="${basePath}index.html" class="brand-logo">Andrea <span>Gioia</span></a>
             <ul class="nav-links">
-                <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
-                <li><a href="chi_sono.html" class="${currentPage === 'chi_sono.html' ? 'active' : ''}">Chi Sono</a></li>
-                <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
-                <li><a href="competenze.html" class="${currentPage === 'competenze.html' ? 'active' : ''}">Competenze</a></li>
-                <li><a href="red.html" class="${currentPage === 'red.html' ? 'active' : ''}">R&D Personale</a></li>
-                <li><a href="contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}">Contatti</a></li>
+                <li><a href="${basePath}index.html" class="${currentPage === 'index.html' && !isRedSection ? 'active' : ''}">Home</a></li>
+                <li><a href="${basePath}chi_sono.html" class="${currentPage === 'chi_sono.html' ? 'active' : ''}">Chi Sono</a></li>
+                <li><a href="${basePath}projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
+                <li><a href="${basePath}competenze.html" class="${currentPage === 'competenze.html' ? 'active' : ''}">Competenze</a></li>
+                <li><a href="${basePath}red.html" class="${currentPage === 'red.html' || isRedSection ? 'active' : ''}">R&D Personale</a></li>
+                <li><a href="${basePath}contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}">Contatti</a></li>
             </ul>
 
             <div class="sidebar-cta">

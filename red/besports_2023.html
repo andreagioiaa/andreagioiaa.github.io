@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeSports 2023 - R&D | Andrea Gioia</title>
+    
+    <link rel="stylesheet" href="../CSS/style.css?v=1.1">
+    
+    <style>
+        /* === CSS BASE DELLA PAGINA === */
+        .content-section {
+            margin-top: 2rem;
+            max-width: 900px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* === CSS DELLA GRIGLIA === */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 250px; /* Altezza fissa per uniformità */
+            object-fit: cover; 
+            border-radius: 8px;
+            /* Cambiamo il cursore per far capire che è cliccabile */
+            cursor: zoom-in; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .gallery-grid img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 94, 0, 0.15);
+            border-color: var(--accent-color);
+            /* Un leggero aumento di luminosità all'hover */
+            filter: brightness(1.1);
+        }
+
+        /* === CSS DEL MODALE (LO ZOOM) === */
+        /* Il contenitore nero che copre tutto lo schermo */
+        .modal {
+            display: none; /* Nascosto di default */
+            position: fixed; 
+            z-index: 2000; /* Altissimo per stare sopra la sidebar */
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            overflow: auto; 
+            /* Sfondo nero semitrasparente */
+            background-color: rgba(0,0,0,0.9); 
+            /* Flexbox per centrare l'immagine */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* L'immagine ingrandita dentro il modale */
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh; /* Non più alta dell'85% dello schermo */
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            /* Animazione di ingresso */
+            animation-name: zoom;
+            animation-duration: 0.3s;
+        }
+
+        /* Il bottone di chiusura (X) */
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: var(--accent-color); /* Diventa arancione al passaggio */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Definizione dell'animazione di zoom */
+        @keyframes zoom {
+            from {transform:scale(0.7); opacity:0} 
+            to {transform:scale(1); opacity:1}
+        }
+
+        /* Media query per schermi piccoli */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 95%;
+            }
+            .close-modal {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <sidebar-menu></sidebar-menu>
+
+    <main id="main-content">
+        <header>
+            <h1><span class="highlight">BeSports</span> 2023.</h1>
+            <p class="subtitle">Rappresentando l'FC Südtirol. Pressione, strategia e competizione ai massimi livelli nel circuito eSports italiano.</p>
+        </header>
+
+        <section class="content-section">
+            <p>
+                Un'esperienza che ha richiesto lucidità e capacità di mantenere la rotta sotto pressione. 
+                Condividere il palcoscenico con il mio compagno di squadra in questa competizione ha significato 
+                sincronizzare approcci tattici e gestire l'impatto emotivo delle partite. 
+                Clicca sulle immagini per ingrandirle.
+            </p>
+            
+            <div class="gallery-grid js-gallery">
+                <img src="../img/DSC_6275.jpg" alt="Setup e concentrazione pre-partita" data-full="../img/DSC_6275.jpg">
+                <img src="../img/DSC_6354.jpg" alt="Intervista post-match" data-full="../img/DSC_6354.jpg">
+                <img src="../img/DSC_6308.jpg" alt="Confronto con il compagno" data-full="../img/DSC_6308.jpg">
+            </div>
+        </section>
+    </main>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="full-image">
+    </div>
+
+
+    <script src="../js/main.js"></script>
+
+    <script>
+        // Aspettiamo che il DOM sia caricato
+        document.addEventListener('DOMContentLoaded', () => {
+            // Selezioniamo gli elementi necessari
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('full-image');
+            const closeBtn = document.querySelector('.close-modal');
+            // Selezioniamo tutte le immagini dentro la griglia della galleria
+            const galleryImages = document.querySelectorAll('.js-gallery img');
+
+            // Funzione per aprire il modale
+            const openModal = (imageSrc) => {
+                modal.style.display = "flex"; // Usiamo flex per centrare
+                modalImg.src = imageSrc;
+                // Disabilita lo scroll della pagina sotto il modale
+                document.body.style.overflow = 'hidden'; 
+            }
+
+            // Funzione per chiudere il modale
+            const closeModal = () => {
+                modal.style.display = "none";
+                modalImg.src = ""; // Pulisce l'immagine
+                // Riabilita lo scroll della pagina
+                document.body.style.overflow = 'auto'; 
+            }
+
+            // Aggiungiamo il click listener a OGNI immagine della galleria
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    // Usa l'attributo data-full se presente, altrimenti usa src
+                    const sourceToUse = this.getAttribute('data-full') || this.src;
+                    openModal(sourceToUse);
+                });
+            });
+
+            // Chiudi cliccando sulla X
+            closeBtn.addEventListener('click', closeModal);
+
+            // Chiudi cliccando fuori dall'immagine (sullo sfondo nero)
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Chiudi premendo il tasto ESC (ottimo per l'accessibilità)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
