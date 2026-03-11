@@ -363,3 +363,33 @@ p.subtitle {
     font-family: var(--font-mono);
     /* margin-top: auto; <- RIMUOVI O COMMENTA QUESTA RIGA SE PRESENTE */
 }
+
+
+.home-quote {
+  /* Margini e spaziatura per centrare e distanziare la citazione */
+  margin: 40px auto;
+  padding: 20px 40px;
+  max-width: 800px;
+  text-align: center;
+  
+  /* Stile visivo della citazione (bordo laterale opzionale e sfondo) */
+  border-left: 5px solid #ffcc00; /* Scegli un colore adatto al tuo brand */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.home-quote h2 {
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Sostituisci con il tuo font */
+  font-size: 2.5rem;
+  line-height: 1.4;
+  color: #333;
+  margin: 0;
+  font-weight: 300;
+  font-style: italic; /* Il corsivo è classico per le citazioni */
+}
+
+.home-quote .highlight {
+  /* L'ombra parte dal basso verso l'alto. 
+     Modifica -0.4em per renderla più o meno spessa */
+  box-shadow: inset 0 -0.4em 0 0 #ffcc00;
+}

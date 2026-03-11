@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Pagina non trovata | Andrea Gioia</title>
+    
+    <link rel="stylesheet" href="/style.css">
+    
+    <style>
+        /* Stili specifici per la 404 che estendono e rispettano il tuo CSS globale */
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh; /* Centra il contenuto verticalmente nell'area principale */
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 10rem;
+            font-weight: 800;
+            /* Arancione più scuro, derivato dal tuo --accent-color (#ff5e00) */
+            color: #cc4b00; 
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -5px;
+            text-shadow: 0 10px 25px rgba(204, 75, 0, 0.15);
+        }
+
+        .error-container h1 {
+            font-size: 2.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-container p.subtitle {
+            margin-bottom: 2.5rem;
+            max-width: 500px; /* Tiene il testo compatto sotto il titolo */
+        }
+
+        /* Bottone che eredita le meccaniche del tuo .btn-download */
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-color);
+            color: var(--surface-color);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px var(--accent-glow);
+        }
+
+        .btn-home:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 94, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <sidebar-menu></sidebar-menu>
+
+    <main id="main-content">
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <h1>Oops! Fuori rotta.</h1>
+            <p class="subtitle">La pagina che stai cercando non esiste, è stata spostata o forse non è mai nata.</p>
+            
+            <a href="/" class="btn-home">Torna alla Home</a>
+        </div>
+    </main>
+
+</body>
+</html>
