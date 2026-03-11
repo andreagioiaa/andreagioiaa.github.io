@@ -393,3 +393,32 @@ p.subtitle {
      Modifica -0.4em per renderla più o meno spessa */
   box-shadow: inset 0 -0.4em 0 0 #ffcc00;
 }
+
+
+/* === STILE PER I LINK NEI TESTI E HIGHLIGHTS === */
+.content-section a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: border-bottom 0.2s ease, filter 0.2s ease;
+    border-bottom: 2px solid transparent; /* Bordo invisibile di base */
+}
+
+.content-section a:hover {
+    /* All'hover fa comparire una linea arancione sotto e si illumina */
+    border-bottom: 2px solid var(--accent-color);
+    filter: brightness(1.2);
+}
+
+.achievement-badge {
+    display: inline-block;
+    background: rgba(255, 94, 0, 0.1); /* Usa l'arancione in trasparenza */
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-family: var(--font-mono, monospace);
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    border: 1px solid rgba(255, 94, 0, 0.3);
+}
