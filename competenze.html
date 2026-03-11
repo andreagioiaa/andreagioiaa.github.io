@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competenze | Andrea Gioia</title>
+    
+    <!-- CSS Globale -->
+    <link rel="stylesheet" href="CSS/style.css?v=1.3">
+    
+    <!-- IMPORTAZIONE DEL CDN ESTERNO (Devicon) -->
+    <!-- Questo link scarica i loghi aggiornati direttamente dal server della libreria -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    
+    <!-- STILI SPECIFICI DELLA PAGINA COMPETENZE -->
+    <style>
+        .skills-category {
+            margin-bottom: 3rem;
+        }
+
+        .skills-category h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--surface-color);
+            padding: 1.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(255, 94, 0, 0.1);
+        }
+
+        /* Il contenitore dell'icona. Le icone Devicon (tag <i>) erediteranno il color! */
+        .skill-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color); /* Colore base dell'icona (arancione) */
+            font-size: 2rem; /* I Web Font si dimensionano con font-size, non con width/height */
+            transition: transform 0.3s ease; /* Transizione fluida per l'ingrandimento */
+        }
+
+        /* Effetto di micro-interazione per enfatizzare il logo al passaggio del mouse */
+        .skill-card:hover .skill-icon {
+            transform: scale(1.15);
+        }
+
+        .skill-name {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigazione Sidebar (Web Component) -->
+    <sidebar-menu></sidebar-menu>
+
+    <!-- CONTENUTO PRINCIPALE DELLA PAGINA -->
+    <main id="main-content">
+        <header>
+            <h1>Le mie <span class="highlight">Competenze</span>.</h1>
+            <p class="subtitle">Linguaggi, framework e metodologie che utilizzo per tradurre l'astrazione logica in architetture software solide e scalabili. Clicca su una competenza per approfondire.</p>
+        </header>
+
+        <!-- CATEGORIA: Core & Data -->
+        <section class="skills-category">
+            <h3>Linguaggi Core & Data</h3>
+            <div class="skills-grid">
+                <!-- C++ -->
+                <a href="competenze/cpp.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-cplusplus-plain"></i>
+                    </div>
+                    <span class="skill-name">C++</span>
+                </a>
+                <!-- Python -->
+                <a href="competenze/python.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-python-plain"></i>
+                    </div>
+                    <span class="skill-name">Python</span>
+                </a>
+                <!-- Java -->
+                <a href="competenze/java.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-java-plain"></i>
+                    </div>
+                    <span class="skill-name">Java</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- CATEGORIA: Web & Database -->
+        <section class="skills-category">
+            <h3>Web Stack & Database</h3>
+            <div class="skills-grid">
+                <!-- JavaScript -->
+                <a href="competenze/javascript.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-javascript-plain"></i>
+                    </div>
+                    <span class="skill-name">JavaScript</span>
+                </a>
+                <!-- PHP -->
+                <a href="competenze/php.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-php-plain"></i>
+                    </div>
+                    <span class="skill-name">PHP</span>
+                </a>
+                <!-- MySQL -->
+                <a href="competenze/mysql.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-mysql-plain"></i>
+                    </div>
+                    <span class="skill-name">MySQL</span>
+                </a>
+                <!-- HTML5 -->
+                <a href="competenze/html5.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-html5-plain"></i>
+                    </div>
+                    <span class="skill-name">HTML5</span>
+                </a>
+                <!-- CSS3 -->
+                <a href="competenze/css3.html" class="skill-card">
+                    <div class="skill-icon">
+                        <i class="devicon-css3-plain"></i>
+                    </div>
+                    <span class="skill-name">CSS3</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- CATEGORIA: Soft Skills -->
+        <!-- Per le Soft Skills manteniamo gli SVG custom, in quanto Devicon mappa solo tecnologie -->
+        <section class="skills-category">
+            <h3>Metodologia & Soft Skills</h3>
+            <div class="skills-grid">
+                <!-- Problem Solving -->
+                <a href="competenze/problem-solving.html" class="skill-card">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18h6"/>
+                            <path d="M10 22h4"/>
+                            <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+                            <line x1="12" y1="2" x2="12" y2="4"/>
+                            <line x1="5" y1="5" x2="6.5" y2="6.5"/>
+                            <line x1="19" y1="5" x2="17.5" y2="6.5"/>
+                        </svg>
+                    </div>
+                    <span class="skill-name">Problem Solving</span>
+                </a>
+                <!-- Team Working -->
+                <a href="competenze/team-working.html" class="skill-card">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                            <circle cx="10" cy="7" r="4"/>
+                            <path d="M21 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <span class="skill-name">Team Working</span>
+                </a>
+                <!-- Adattabilità -->
+                <a href="competenze/adattabilita.html" class="skill-card">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                    </div>
+                    <span class="skill-name">Adattabilità</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

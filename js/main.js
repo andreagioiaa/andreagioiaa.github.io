@@ -14,9 +14,15 @@ class SidebarMenu extends HTMLElement {
                 <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
                 <li><a href="chi_sono.html" class="${currentPage === 'chi_sono.html' ? 'active' : ''}">Chi Sono</a></li>
                 <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
+                <li><a href="competenze.html" class="${currentPage === 'competenze.html' ? 'active' : ''}">Competenze</a></li>
                 <li><a href="red.html" class="${currentPage === 'red.html' ? 'active' : ''}">R&D Personale</a></li>
                 <li><a href="contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}">Contatti</a></li>
             </ul>
+
+            <div class="sidebar-cta">
+                <download-cv></download-cv>
+            </div>
+
             <div class="sidebar-footer">
                 <p>📍 Cormons (GO)</p>
                 <p>Sys.Status: ONLINE</p>
@@ -53,6 +59,21 @@ class FeaturedProjects extends HTMLElement {
     }
 }
 
+class DownloadCV extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = `
+            <a href="assets/CV_Gioia_Andrea.pdf" download="CV_Gioia_Andrea.pdf" target="_blank" rel="noopener noreferrer" class="btn-download">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Scarica il mio Curriculum
+            </a>
+        `;
+    }
+}
+
 // 3. REGISTRAZIONE DEI COMPONENTI NEL BROWSER
 // Il controllo 'if' evita errori se il file viene caricato due volte
 if (!customElements.get('sidebar-menu')) {
@@ -61,4 +82,8 @@ if (!customElements.get('sidebar-menu')) {
 
 if (!customElements.get('featured-projects')) {
     customElements.define('featured-projects', FeaturedProjects);
+}
+
+if (!customElements.get('download-cv')) {
+    customElements.define('download-cv', DownloadCV);
 }

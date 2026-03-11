@@ -303,3 +303,63 @@ p.subtitle {
     color: var(--accent-color);
     font-weight: bold;
 }
+
+
+/* --- PULSANTE DOWNLOAD CV --- */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Spazio per un'eventuale icona a fianco del testo */
+    background-color: var(--accent-color);
+    color: var(--surface-color); /* Testo bianco puro per massimo contrasto */
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.8rem 1.8rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px var(--accent-glow);
+}
+
+/* Feedback al passaggio del mouse: diventa "ghost" e si solleva */
+.btn-download:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(255, 94, 0, 0.2);
+}
+
+/* Feedback tattile al momento del clic reale */
+.btn-download:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px var(--accent-glow);
+}
+
+
+/* Togliamo il margin-top: auto dal footer e lo diamo al contenitore della CTA 
+   così spinge verso il basso tutto il blocco finale */
+.sidebar-cta {
+    margin-top: auto; 
+    margin-bottom: 1.5rem; /* Spazio tra il bottone e il footer */
+    display: flex;
+    justify-content: center;
+}
+
+/* Modifica al bottone per adattarsi alla sidebar */
+.btn-download {
+    width: 100%; /* Fa occupare al bottone tutta la larghezza disponibile della sidebar */
+    justify-content: center; /* Centra testo e icona */
+    padding: 0.8rem 1rem; /* Leggermente meno padding laterale per schermi piccoli */
+}
+
+/* Aggiornamento del footer per rimuovere il vecchio margin-top */
+.sidebar-footer {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    /* margin-top: auto; <- RIMUOVI O COMMENTA QUESTA RIGA SE PRESENTE */
+}
