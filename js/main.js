@@ -14,7 +14,7 @@ class SidebarMenu extends HTMLElement {
                 <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}">Home</a></li>
                 <li><a href="chi_sono.html" class="${currentPage === 'chi_sono.html' ? 'active' : ''}">Chi Sono</a></li>
                 <li><a href="projects.html" class="${currentPage === 'projects.html' ? 'active' : ''}">Progetti</a></li>
-                <li><a href="free_time.html" class="${currentPage === 'free_time.html' ? 'active' : ''}">Tempo Libero</a></li>
+                <li><a href="red.html" class="${currentPage === 'red.html' ? 'active' : ''}">R&D Personale</a></li>
                 <li><a href="contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}">Contatti</a></li>
             </ul>
             <div class="sidebar-footer">
