@@ -87,3 +87,28 @@ if (!customElements.get('featured-projects')) {
 if (!customElements.get('download-cv')) {
     customElements.define('download-cv', DownloadCV);
 }
+
+
+
+
+function calcolaEta() {
+    // La tua data di nascita: 29 Luglio 2002
+    const dataNascita = new Date('2002-07-29');
+    const oggi = new Date();
+    
+    // Calcolo base della differenza di anni
+    let eta = oggi.getFullYear() - dataNascita.getFullYear();
+    const differenzaMesi = oggi.getMonth() - dataNascita.getMonth();
+    
+    // Se il mese corrente è precedente al mese di nascita, 
+    // o se siamo nello stesso mese ma il giorno non è ancora arrivato,
+    // sottraiamo un anno perché il compleanno non è ancora passato.
+    if (differenzaMesi < 0 || (differenzaMesi === 0 && oggi.getDate() < dataNascita.getDate())) {
+        eta--;
+    }
+    
+    return eta;
+}
+
+// Inseriamo l'età calcolata nello span con id "eta"
+document.getElementById('eta').textContent = calcolaEta();
