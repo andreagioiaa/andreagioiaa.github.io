@@ -119,6 +119,42 @@
                 font-size: 30px;
             }
         }
+
+        /* === CSS DELLE FRECCE DI NAVIGAZIONE === */
+        .prev-modal, .next-modal {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 20px;
+            color: #f1f1f1;
+            font-weight: bold;
+            font-size: 40px;
+            transition: color 0.3s ease;
+            user-select: none; /* Evita che l'utente selezioni il testo cliccando veloce */
+            z-index: 2001;
+        }
+
+        .prev-modal {
+            left: 20px;
+        }
+
+        .next-modal {
+            right: 20px;
+        }
+
+        .prev-modal:hover, .next-modal:hover {
+            color: var(--accent-color);
+        }
+
+        /* Nascondiamo le frecce su schermi minuscoli per non coprire l'immagine */
+        @media only screen and (max-width: 500px){
+            .prev-modal, .next-modal {
+                font-size: 30px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -150,61 +186,106 @@
 
     <div id="image-modal" class="modal">
         <span class="close-modal">&times;</span>
+        <span class="prev-modal">&#10094;</span>
+        <span class="next-modal">&#10095;</span>
+        
         <img class="modal-content" id="full-image">
+    </div>
     </div>
 
 
     <script src="../js/main.js"></script>
 
     <script>
-        // Aspettiamo che il DOM sia caricato
         document.addEventListener('DOMContentLoaded', () => {
-            // Selezioniamo gli elementi necessari
             const modal = document.getElementById('image-modal');
             const modalImg = document.getElementById('full-image');
             const closeBtn = document.querySelector('.close-modal');
-            // Selezioniamo tutte le immagini dentro la griglia della galleria
-            const galleryImages = document.querySelectorAll('.js-gallery img');
+            
+            // Nuovi selettori per le frecce
+            const prevBtn = document.querySelector('.prev-modal');
+            const nextBtn = document.querySelector('.next-modal');
+            
+            // Convertiamo la NodeList in un vero Array per usare l'indice
+            const galleryImages = Array.from(document.querySelectorAll('.js-gallery img'));
+            let currentIndex = 0; // Tiene traccia della foto attualmente aperta
 
-            // Funzione per aprire il modale
-            const openModal = (imageSrc) => {
-                modal.style.display = "flex"; // Usiamo flex per centrare
-                modalImg.src = imageSrc;
-                // Disabilita lo scroll della pagina sotto il modale
+            // Funzione per aggiornare la sorgente dell'immagine nel modale
+            const updateModalImage = (index) => {
+                const img = galleryImages[index];
+                modalImg.src = img.getAttribute('data-full') || img.src;
+            };
+
+            const openModal = (index) => {
+                currentIndex = index;
+                modal.style.display = "flex";
+                updateModalImage(currentIndex);
                 document.body.style.overflow = 'hidden'; 
-            }
+            };
 
-            // Funzione per chiudere il modale
             const closeModal = () => {
                 modal.style.display = "none";
-                modalImg.src = ""; // Pulisce l'immagine
-                // Riabilita lo scroll della pagina
+                modalImg.src = ""; 
                 document.body.style.overflow = 'auto'; 
-            }
+            };
 
-            // Aggiungiamo il click listener a OGNI immagine della galleria
-            galleryImages.forEach(img => {
-                img.addEventListener('click', function() {
-                    // Usa l'attributo data-full se presente, altrimenti usa src
-                    const sourceToUse = this.getAttribute('data-full') || this.src;
-                    openModal(sourceToUse);
+            // Funzioni di navigazione (con logica circolare: dall'ultima torna alla prima)
+            const showNext = () => {
+                if (currentIndex === galleryImages.length - 1) {
+                    // Se siamo all'ultima foto, riparti dalla prima (indice 0)
+                    currentIndex = 0; 
+                } else {
+                    // Altrimenti, vai semplicemente alla successiva
+                    currentIndex++; 
+                }
+                updateModalImage(currentIndex);
+            };
+
+            const showPrev = () => {
+                if (currentIndex === 0) {
+                    // Se siamo alla prima foto e andiamo indietro, salta all'ultima
+                    currentIndex = galleryImages.length - 1; 
+                } else {
+                    // Altrimenti, vai semplicemente alla precedente
+                    currentIndex--; 
+                }
+                updateModalImage(currentIndex);
+            };
+
+            // Event listener per aprire l'immagine cliccata
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    openModal(index);
                 });
             });
 
-            // Chiudi cliccando sulla X
+            // Event listener per i bottoni del modale
             closeBtn.addEventListener('click', closeModal);
+            
+            // stopPropagation() evita che il click sulla freccia venga contato come click sullo sfondo nero
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showNext();
+            });
+            
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showPrev();
+            });
 
-            // Chiudi cliccando fuori dall'immagine (sullo sfondo nero)
+            // Chiusura cliccando fuori
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeModal();
                 }
             });
 
-            // Chiudi premendo il tasto ESC (ottimo per l'accessibilità)
+            // Navigazione e chiusura con TASTIERA
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal.style.display === 'flex') {
-                    closeModal();
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'ArrowRight') showNext();
+                    if (e.key === 'ArrowLeft') showPrev();
                 }
             });
         });
