@@ -1,0 +1,9 @@
+Key,Value
+work_minutes,25
+break_minutes,5
+target_cycles,1
+audio_path,
+sfx_start,
+sfx_stop,
+ref_work,25
+ref_break,5
