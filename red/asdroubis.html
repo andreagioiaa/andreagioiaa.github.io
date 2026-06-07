@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeSports 2023 - R&D | Andrea Gioia</title>
+    
+    <link rel="stylesheet" href="../CSS/style.css?v=1.1">
+    
+    <style>
+        /* === CSS BASE DELLA PAGINA === */
+        .content-section {
+            margin-top: 2rem;
+            max-width: 900px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* === CSS DELLA GRIGLIA === */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 250px; /* Altezza fissa per uniformità */
+            object-fit: cover; 
+            border-radius: 8px;
+            /* Cambiamo il cursore per far capire che è cliccabile */
+            cursor: zoom-in; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .gallery-grid img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 94, 0, 0.15);
+            border-color: var(--accent-color);
+            /* Un leggero aumento di luminosità all'hover */
+            filter: brightness(1.1);
+        }
+
+        /* === CSS DEL MODALE (LO ZOOM) === */
+        /* Il contenitore nero che copre tutto lo schermo */
+        .modal {
+            display: none; /* Nascosto di default */
+            position: fixed; 
+            z-index: 2000; /* Altissimo per stare sopra la sidebar */
+            padding-top: 50px; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            overflow: auto; 
+            /* Sfondo nero semitrasparente */
+            background-color: rgba(0,0,0,0.9); 
+            /* Flexbox per centrare l'immagine */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* L'immagine ingrandita dentro il modale */
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh; /* Non più alta dell'85% dello schermo */
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            /* Animazione di ingresso */
+            animation-name: zoom;
+            animation-duration: 0.3s;
+        }
+
+        /* Il bottone di chiusura (X) */
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: var(--accent-color); /* Diventa arancione al passaggio */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Definizione dell'animazione di zoom */
+        @keyframes zoom {
+            from {transform:scale(0.7); opacity:0} 
+            to {transform:scale(1); opacity:1}
+        }
+
+        /* Media query per schermi piccoli */
+        @media only screen and (max-width: 700px){
+            .modal-content {
+                width: 95%;
+            }
+            .close-modal {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+
+        /* === CSS DELLE FRECCE DI NAVIGAZIONE === */
+        .prev-modal, .next-modal {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 20px;
+            color: #f1f1f1;
+            font-weight: bold;
+            font-size: 40px;
+            transition: color 0.3s ease;
+            user-select: none; /* Evita che l'utente selezioni il testo cliccando veloce */
+            z-index: 2001;
+        }
+
+        .prev-modal {
+            left: 20px;
+        }
+
+        .next-modal {
+            right: 20px;
+        }
+
+        .prev-modal:hover, .next-modal:hover {
+            color: var(--accent-color);
+        }
+
+        /* Nascondiamo le frecce su schermi minuscoli per non coprire l'immagine */
+        @media only screen and (max-width: 500px){
+            .prev-modal, .next-modal {
+                font-size: 30px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <sidebar-menu base-path="../"></sidebar-menu>
+
+    <main id="main-content">
+        <header>
+            <h1><span class="highlight">ASD ROUBIS</span>.</h1>
+            <p class="subtitle">Squadra di calcio e di pallavolo formata da amici per i vari tornei estivi.</p>
+        </header>
+
+        <section class="content-section">
+            <p>
+                Prima apparizione nel 2022 al torneo di San Valeriano, nasce poi ufficialmente nel 2023 la squadra dopo un paio di chiacchierate.
+				Dentro questo "progetto" mi occupo prevalentemente della stesura e organizzazione della parte social, prediligendo la scrittura dei post e la pubblicazione delle foto.
+            <p>
+                 <b><a href="https://www.instagram.com/asdroubis/" target="_blank" rel="noopener noreferrer">Profilo social</a></b> della squadra gestito da me e da <b><a href="https://www.instagram.com/matteo.zonch/" target="_blank" rel="noopener noreferrer">Matteo Zonch</a></b>.
+            </p>
+            
+			<!--
+            <div class="gallery-grid js-gallery">
+                <img src="../img/DSC_6275.jpg" alt="Setup e concentrazione pre-partita" data-full="../img/DSC_6275.jpg">
+                <img src="../img/DSC_6354.jpg" alt="Intervista post-match" data-full="../img/DSC_6354.jpg">
+                <img src="../img/DSC_6308.jpg" alt="Confronto con il compagno" data-full="../img/DSC_6308.jpg">
+            </div>
+			-->
+        </section>
+    </main>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <span class="prev-modal">&#10094;</span>
+        <span class="next-modal">&#10095;</span>
+        
+        <img class="modal-content" id="full-image">
+    </div>
+    </div>
+
+
+    <script src="../js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('full-image');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            // Nuovi selettori per le frecce
+            const prevBtn = document.querySelector('.prev-modal');
+            const nextBtn = document.querySelector('.next-modal');
+            
+            // Convertiamo la NodeList in un vero Array per usare l'indice
+            const galleryImages = Array.from(document.querySelectorAll('.js-gallery img'));
+            let currentIndex = 0; // Tiene traccia della foto attualmente aperta
+
+            // Funzione per aggiornare la sorgente dell'immagine nel modale
+            const updateModalImage = (index) => {
+                const img = galleryImages[index];
+                modalImg.src = img.getAttribute('data-full') || img.src;
+            };
+
+            const openModal = (index) => {
+                currentIndex = index;
+                modal.style.display = "flex";
+                updateModalImage(currentIndex);
+                document.body.style.overflow = 'hidden'; 
+            };
+
+            const closeModal = () => {
+                modal.style.display = "none";
+                modalImg.src = ""; 
+                document.body.style.overflow = 'auto'; 
+            };
+
+            // Funzioni di navigazione (con logica circolare: dall'ultima torna alla prima)
+            const showNext = () => {
+                if (currentIndex === galleryImages.length - 1) {
+                    // Se siamo all'ultima foto, riparti dalla prima (indice 0)
+                    currentIndex = 0; 
+                } else {
+                    // Altrimenti, vai semplicemente alla successiva
+                    currentIndex++; 
+                }
+                updateModalImage(currentIndex);
+            };
+
+            const showPrev = () => {
+                if (currentIndex === 0) {
+                    // Se siamo alla prima foto e andiamo indietro, salta all'ultima
+                    currentIndex = galleryImages.length - 1; 
+                } else {
+                    // Altrimenti, vai semplicemente alla precedente
+                    currentIndex--; 
+                }
+                updateModalImage(currentIndex);
+            };
+
+            // Event listener per aprire l'immagine cliccata
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    openModal(index);
+                });
+            });
+
+            // Event listener per i bottoni del modale
+            closeBtn.addEventListener('click', closeModal);
+            
+            // stopPropagation() evita che il click sulla freccia venga contato come click sullo sfondo nero
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showNext();
+            });
+            
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showPrev();
+            });
+
+            // Chiusura cliccando fuori
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Navigazione e chiusura con TASTIERA
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'ArrowRight') showNext();
+                    if (e.key === 'ArrowLeft') showPrev();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
