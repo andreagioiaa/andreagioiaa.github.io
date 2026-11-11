@@ -118,4 +118,5 @@ function calcolaEta() {
 }
 
 // Inseriamo l'età calcolata nello span con id "eta"
-document.getElementById('eta').textContent = calcolaEta();
+const etaEl = document.getElementById('eta');
+if (etaEl) etaEl.textContent = calcolaEta();
