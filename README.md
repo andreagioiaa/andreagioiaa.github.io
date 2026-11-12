@@ -7,7 +7,7 @@ Portfolio personale di Andrea Gioia — IoT, software engineering e AI agentica.
 - **Vite + React 19**: single page con sezioni ancorate (`#progetti`, `#competenze`, …).
 - **GSAP + ScrollTrigger**: animazioni d'ingresso, reveal allo scroll, parallax e barra di avanzamento.
 - **Lenis**: smooth scroll globale, guidato dal ticker di GSAP (un solo `requestAnimationFrame`).
-- **React Bits**: `SplitText`, `ShinyText`, `DotGrid`, `Magnet`, `SpotlightCard` in `src/components/reactbits/`
+- **React Bits**: `SplitText`, `ShinyText`, `DotGrid`, `Magnet`, `SpotlightCard`, `LogoLoop` in `src/components/reactbits/`
   (licenza MIT + Commons Clause, vedi `LICENSE.md` nella cartella).
 
 Performance e accessibilità: si animano solo `transform`/`opacity`; con `prefers-reduced-motion: reduce`
@@ -24,9 +24,10 @@ npm run build    # output in dist/
 ## Contenuti
 
 - Progetti: `src/data/projects.js` (formato Problema → Soluzione architetturale → Tech stack)
-- Competenze e AI workflows: `src/data/skills.js`
-- Pagine statiche legacy (R&D, immagini, CV): `public/`. Le vecchie URL (`chi_sono.html`, `projects.html`, …)
-  reindirizzano alle sezioni corrispondenti.
+- Loghi delle competenze (Simple Icons): `src/data/logos.js`
+- Soft skill e AI workflows: `src/data/skills.js`
+- R&D personale (testi e galleria): `src/components/RnD.jsx`, foto in `public/img/*.webp`
+- Le vecchie URL (`chi_sono.html`, `projects.html`, `red/*.html`, …) sono redirect alle sezioni della home.
 
 ## Deploy
 

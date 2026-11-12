@@ -51,4 +51,9 @@ export function scrollToId(id, { immediate = false } = {}) {
   history.replaceState(null, '', id === 'top' ? location.pathname : `#${id}`);
 }
 
+export function setScrollLocked(locked) {
+  if (lenis) (locked ? lenis.stop() : lenis.start());
+  document.documentElement.style.overflow = locked ? 'hidden' : '';
+}
+
 export { gsap, ScrollTrigger };
