@@ -751,6 +751,263 @@ canvas {
   margin-top: 1.5rem;
 }
 
+.projects-featured {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.project__repo--private {
+  border-style: dashed;
+  color: var(--text-dim);
+  cursor: default;
+}
+
+.project__repo--private:hover {
+  color: var(--text-dim);
+  border-color: var(--line-strong);
+}
+
+/* --- Vetrina grafica dei progetti (ProjectShowcase.jsx) --- */
+.showcase {
+  margin: -0.5rem 0 2.25rem;
+}
+
+.device__zoom {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(11, 11, 13, 0.72);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  pointer-events: none;
+}
+
+.device:hover .device__zoom,
+.device:focus-visible .device__zoom,
+.stage__view:hover .device__zoom,
+.stage__view:focus-visible .device__zoom {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cornice smartphone */
+.device--phone {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background: linear-gradient(160deg, #26262c, #141418 60%);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.8);
+  cursor: zoom-in;
+  transition: transform 0.45s var(--ease), border-color 0.3s var(--ease);
+}
+
+.device--phone:hover,
+.device--phone:focus-visible {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.device__screen {
+  display: block;
+  overflow: hidden;
+  border-radius: 17px;
+  background: var(--surface);
+}
+
+.device__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.device__caption {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.phones {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  align-items: start;
+  padding: 0.5rem 0.25rem 0;
+}
+
+.showcase--phones:not(.showcase--wide) .phones {
+  max-width: calc(var(--n) * 170px);
+}
+
+/* Vetrina larga: telefoni sfalsati per dare ritmo alla fila */
+.showcase--wide .phones li:nth-child(even) {
+  margin-top: 2.25rem;
+}
+
+/* Stage: schermata grande + selettore */
+.stage {
+  position: relative;
+}
+
+.showcase--stage.has-companion .stage {
+  padding-right: clamp(3.5rem, 13%, 9rem);
+  padding-bottom: 1.5rem;
+}
+
+.stage__frame {
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: var(--bg);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+}
+
+.stage__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+  background: #17171b;
+}
+
+.stage__dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.stage__dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3a3a42;
+}
+
+.stage__dots i:first-child {
+  background: var(--accent);
+}
+
+.stage__title {
+  overflow: hidden;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.stage__view {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.stage__view img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transform: scale(1.015);
+  transition: opacity 0.5s var(--ease), transform 0.8s var(--ease);
+}
+
+.stage__view img.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+/* Figure (grafici): fondo chiaro come l'originale, immagine intera */
+.showcase--figure .stage__frame {
+  background: #fff;
+}
+
+.showcase--figure .stage__view img {
+  inset: 0.75rem;
+  width: calc(100% - 1.5rem);
+  height: calc(100% - 1.5rem);
+  object-fit: contain;
+  object-position: center;
+}
+
+.stage__companion.device--phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: clamp(5.5rem, 22%, 11rem);
+  padding: 4px;
+  border-radius: 18px;
+}
+
+.stage__companion .device__screen {
+  border-radius: 14px;
+}
+
+.stage__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+}
+
+.stage__tab {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.stage__tab span {
+  color: var(--text-dim);
+  margin-right: 0.2rem;
+}
+
+.stage__tab:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.stage__tab[aria-selected='true'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.stage__tab[aria-selected='true'] span {
+  color: var(--accent-text);
+}
+
+.lightbox--phone {
+  width: min(92vw, 440px);
+}
+
+.lightbox--phone img {
+  border-radius: 22px;
+}
+
 .more {
   margin-top: 2.5rem;
   font-family: var(--font-mono);
@@ -1356,6 +1613,29 @@ canvas {
     justify-self: start;
   }
 
+  /* Molti telefoni: scorrimento orizzontale con aggancio */
+  .showcase--wide .phones {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 42%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    padding-bottom: 0.75rem;
+  }
+
+  .showcase--wide .phones li {
+    scroll-snap-align: start;
+  }
+
+  .showcase--wide .phones li:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .stage__title {
+    display: none;
+  }
+
   .logo-row {
     grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
@@ -1416,7 +1696,27 @@ canvas {
   }
 
   .gallery__item:hover img,
-  .gallery__item:focus-visible img {
+  .gallery__item:focus-visible img,
+  .device--phone:hover,
+  .device--phone:focus-visible,
+  .stage__view img {
     transform: none;
   }
+}
+
+/* Vetrina desktop nelle schede in evidenza: non oltre ~70% dell'altezza schermo */
+.showcase--wide.showcase--stage .stage {
+  max-width: min(100%, 112vh);
+  margin-inline: auto;
+}
+
+.showcase--wide .stage__tabs {
+  justify-content: center;
+}
+
+/* Gli elementi di griglia non devono allargarsi oltre la colonna (fila di telefoni scorrevole) */
+.projects-featured > *,
+.projects-grid > *,
+.showcase {
+  min-width: 0;
 }
