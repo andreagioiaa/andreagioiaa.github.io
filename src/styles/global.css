@@ -1096,6 +1096,102 @@ canvas {
 .lightbox__prev { left: 12px; top: 50%; translate: 0 -50%; }
 .lightbox__next { right: 12px; top: 50%; translate: 0 -50%; }
 
+/* --- Galleria post Instagram (ASD Roubis) --- */
+.gallery--posts {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.gallery__item--ext {
+  position: relative;
+  cursor: pointer;
+}
+
+.gallery__item--ext img {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery__date {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(11, 11, 13, 0.75);
+  color: var(--text);
+  font-size: 0.7rem;
+}
+
+/* --- Conferma link esterno --- */
+.confirm {
+  width: min(92vw, 440px);
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+  color: var(--text);
+}
+
+.confirm::backdrop {
+  background: rgba(5, 5, 6, 0.8);
+}
+
+.confirm[open] {
+  animation: lb-in 0.3s var(--ease);
+}
+
+.confirm__box {
+  padding: 1.5rem;
+}
+
+.confirm__kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  color: var(--accent-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.confirm h4 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+}
+
+.confirm p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.confirm__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.confirm__btn {
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.confirm__btn:hover {
+  border-color: var(--accent);
+}
+
+.confirm__btn--primary {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
 /* --- Contact --- */
 .contact__links {
   display: grid;
@@ -1262,6 +1358,10 @@ canvas {
 
   .gallery li:first-child {
     grid-column: 1 / -1;
+  }
+
+  .gallery--posts li:first-child {
+    grid-column: auto;
   }
 
   .hero__scroll {

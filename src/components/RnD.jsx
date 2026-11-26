@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SectionHead from './SectionHead.jsx';
 import { setScrollLocked } from '../lib/motion.js';
+import { roubisPosts, roubisSrc } from '../data/roubis.js';
 
 const photos = [
   { id: 'DSC_6275', alt: 'Setup e concentrazione pre-partita' },
@@ -69,10 +70,67 @@ function Lightbox({ index, onClose, onMove }) {
   );
 }
 
+const fmtDate = d =>
+  new Date(`${d}T12:00:00`).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
+
+/** Chiede conferma prima di lasciare il sito per un contenuto Instagram. */
+function ExternalConfirm({ post, onClose }) {
+  const ref = useRef(null);
+  const isOpen = post !== null;
+
+  useEffect(() => {
+    const dlg = ref.current;
+    if (!isOpen) return undefined;
+    if (!dlg.open) dlg.showModal();
+    setScrollLocked(true);
+    return () => {
+      setScrollLocked(false);
+      if (dlg.open) dlg.close();
+    };
+  }, [isOpen]);
+
+  return (
+    <dialog
+      ref={ref}
+      className="confirm"
+      aria-labelledby="confirm-title"
+      onClose={onClose}
+      onClick={e => e.target === ref.current && onClose()}
+    >
+      {post ? (
+        <div className="confirm__box">
+          <p className="confirm__kicker mono">Contenuto esterno</p>
+          <h4 id="confirm-title">Aprire il post su Instagram?</h4>
+          <p>
+            Stai per lasciare il sito e visitare <b>instagram.com</b>, che potrebbe usare cookie e tracciamento
+            secondo le proprie policy.
+          </p>
+          <div className="confirm__actions">
+            <button className="confirm__btn" onClick={onClose} autoFocus>
+              Annulla
+            </button>
+            <a
+              className="confirm__btn confirm__btn--primary"
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+            >
+              Apri su Instagram ↗
+            </a>
+          </div>
+        </div>
+      ) : null}
+    </dialog>
+  );
+}
+
 export default function RnD() {
   const [open, setOpen] = useState(null);
   const close = useCallback(() => setOpen(null), []);
   const move = useCallback(d => setOpen(i => (i === null ? i : (i + d + photos.length) % photos.length)), []);
+  const [igPost, setIgPost] = useState(null);
+  const closeIg = useCallback(() => setIgPost(null), []);
 
   return (
     <section id="rnd" className="section container" aria-labelledby="rnd-title">
@@ -136,6 +194,22 @@ export default function RnD() {
               <Ext href="https://www.instagram.com/asdroubis/">profilo Instagram</Ext> è gestito insieme a{' '}
               <Ext href="https://www.instagram.com/matteo.zonch/">Matteo Zonch</Ext>.
             </p>
+            {roubisPosts.length > 0 ? (
+              <ul className="gallery gallery--posts" aria-label="Post Instagram di ASD Roubis, dal più vecchio">
+                {roubisPosts.map(p => (
+                  <li key={p.id}>
+                    <button
+                      className="gallery__item gallery__item--ext"
+                      onClick={() => setIgPost(p)}
+                      aria-label={`Apri il post Instagram del ${fmtDate(p.date)}: ${p.alt}`}
+                    >
+                      <img src={roubisSrc(p.id)} alt={p.alt} width="800" height="800" loading="lazy" decoding="async" />
+                      <span className="gallery__date mono">{fmtDate(p.date)}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </article>
 
@@ -155,6 +229,7 @@ export default function RnD() {
       </div>
 
       <Lightbox index={open} onClose={close} onMove={move} />
+      <ExternalConfirm post={igPost} onClose={closeIg} />
     </section>
   );
 }
