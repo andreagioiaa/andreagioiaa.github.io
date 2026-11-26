@@ -8,6 +8,9 @@
 // Le immagini stanno in public/img/projects/<id>/<nome>-<larghezza>.webp:
 // `sizes` elenca le larghezze generate, `ratio` è larghezza/altezza dell'originale.
 // `repo: null` indica un repository privato (nessun link al codice).
+// `links` (facoltativo) sono i pulsanti d'azione nell'intestazione della scheda:
+//   { type: 'live', href, label }      -> app online, si apre in una nuova scheda;
+//   { type: 'download', href, label }  -> installer (es. Release GitHub .exe / .apk).
 
 const phone = (name, alt, caption) => ({ name, alt, caption, frame: 'phone', ratio: 9 / 16, sizes: [360, 720] });
 
@@ -82,6 +85,7 @@ export const projects = [
     title: 'Roubis',
     kind: 'Web app full-stack · Next.js + Supabase',
     repo: null,
+    links: [{ type: 'live', href: 'https://roubis.vercel.app/login', label: 'Apri l’app' }],
     media: {
       layout: 'stage',
       frame: 'window',
@@ -119,6 +123,7 @@ export const projects = [
     title: 'ParkingUdine',
     kind: 'Web app mobile-first · TypeScript · Edge',
     repo: null,
+    links: [{ type: 'live', href: 'https://parcheggi-udine.parcheggi-udine.workers.dev/', label: 'Apri l’app' }],
     media: {
       layout: 'phones',
       label: 'Schermate della web app “Parcheggia a Udine”',

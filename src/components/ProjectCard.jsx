@@ -14,8 +14,20 @@ const LockIcon = () => (
   </svg>
 );
 
+const LiveIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const DownloadIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <path d="M12 4v11M7 10l5 5 5-5M5 20h14" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export default function ProjectCard({ project }) {
-  const { index, title, kind, repo, problem, solution, stack, flow, featured, media } = project;
+  const { index, title, kind, repo, problem, solution, stack, flow, featured, media, links = [] } = project;
   const headingId = `p-${project.id}`;
 
   return (
@@ -35,18 +47,27 @@ export default function ProjectCard({ project }) {
           <p className="project__kind mono">{kind}</p>
           <h3 id={headingId} className="project__title">{title}</h3>
         </div>
-        {repo ? (
-          <a className="project__repo" href={repo} target="_blank" rel="noopener noreferrer">
-            <GitHubIcon />
-            <span>Codice</span>
-            <span className="sr-only"> di {title} su GitHub</span>
-          </a>
-        ) : (
-          <span className="project__repo project__repo--private" title="Il codice sorgente è in un repository privato">
-            <LockIcon />
-            <span>Repo privato</span>
-          </span>
-        )}
+        <div className="project__actions">
+          {links.map(l => (
+            <a key={l.href} className="project__repo project__repo--action" href={l.href} target="_blank" rel="noopener noreferrer">
+              {l.type === 'download' ? <DownloadIcon /> : <LiveIcon />}
+              <span>{l.label}</span>
+              <span className="sr-only"> — {title}</span>
+            </a>
+          ))}
+          {repo ? (
+            <a className="project__repo" href={repo} target="_blank" rel="noopener noreferrer">
+              <GitHubIcon />
+              <span>Codice</span>
+              <span className="sr-only"> di {title} su GitHub</span>
+            </a>
+          ) : (
+            <span className="project__repo project__repo--private" title="Il codice sorgente è in un repository privato">
+              <LockIcon />
+              <span>Repo privato</span>
+            </span>
+          )}
+        </div>
       </header>
 
       <ProjectShowcase pid={project.id} media={media} featured={featured} />
