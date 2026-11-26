@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SectionHead from './SectionHead.jsx';
 import { setScrollLocked } from '../lib/motion.js';
-import { roubisPosts, roubisSrc } from '../data/roubis.js';
+import LogoLoop from './reactbits/LogoLoop.jsx';
+import { roubisPosts, hackathonPhotos } from '../data/rndPhotos.js';
 
 const photos = [
   { id: 'DSC_6275', alt: 'Setup e concentrazione pre-partita' },
@@ -70,7 +71,68 @@ function Lightbox({ index, onClose, onMove }) {
   );
 }
 
-/** Chiede conferma prima di lasciare il sito per un contenuto Instagram. */
+const hostOf = url => new URL(url).hostname.replace(/^www\./, '');
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = e => setReduced(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return reduced;
+}
+
+/**
+ * Nastro di foto in scorrimento (stesso LogoLoop delle competenze).
+ * Ogni foto è un pulsante che chiede conferma prima di aprire il post esterno.
+ */
+function PhotoLoop({ photos, label, onPick, direction = 'left' }) {
+  const reduced = useReducedMotion();
+
+  const photoButton = (p, focusable = true) => (
+    <button
+      type="button"
+      className="photo-loop__btn"
+      onClick={() => onPick(p)}
+      aria-label={`Apri su ${p.platform}: ${p.alt}`}
+      tabIndex={focusable ? undefined : -1}
+    >
+      <img src={p.src} alt="" width={p.w} height={p.h} decoding="async" draggable={false} />
+    </button>
+  );
+
+  if (reduced) {
+    return (
+      <ul className="photo-loop photo-loop--static" aria-label={label}>
+        {photos.map(p => (
+          <li key={p.src}>{photoButton(p)}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  return (
+    <LogoLoop
+      logos={photos}
+      renderItem={(p, _key, isPrimary) => photoButton(p, isPrimary)}
+      speed={28}
+      direction={direction}
+      logoHeight={220}
+      gap={16}
+      pauseOnHover
+      fadeOut
+      fadeOutWidth={0.08}
+      ariaLabel={label}
+      className="photo-loop"
+    />
+  );
+}
+
+/** Chiede conferma prima di lasciare il sito per un contenuto esterno (Instagram, LinkedIn). */
 function ExternalConfirm({ post, onClose }) {
   const ref = useRef(null);
   const isOpen = post !== null;
@@ -97,9 +159,9 @@ function ExternalConfirm({ post, onClose }) {
       {post ? (
         <div className="confirm__box">
           <p className="confirm__kicker mono">Contenuto esterno</p>
-          <h4 id="confirm-title">Aprire il post su Instagram?</h4>
+          <h4 id="confirm-title">Aprire il post su {post.platform}?</h4>
           <p>
-            Stai per lasciare il sito e visitare <b>instagram.com</b>, che potrebbe usare cookie e tracciamento
+            Stai per lasciare il sito e visitare <b>{hostOf(post.url)}</b>, che potrebbe usare cookie e tracciamento
             secondo le proprie policy.
           </p>
           <div className="confirm__actions">
@@ -113,7 +175,7 @@ function ExternalConfirm({ post, onClose }) {
               rel="noopener noreferrer"
               onClick={onClose}
             >
-              Apri su Instagram ↗
+              Apri su {post.platform} ↗
             </a>
           </div>
         </div>
@@ -126,8 +188,8 @@ export default function RnD() {
   const [open, setOpen] = useState(null);
   const close = useCallback(() => setOpen(null), []);
   const move = useCallback(d => setOpen(i => (i === null ? i : (i + d + photos.length) % photos.length)), []);
-  const [igPost, setIgPost] = useState(null);
-  const closeIg = useCallback(() => setIgPost(null), []);
+  const [extPost, setExtPost] = useState(null);
+  const closeExt = useCallback(() => setExtPost(null), []);
 
   return (
     <section id="rnd" className="section container" aria-labelledby="rnd-title">
@@ -191,22 +253,7 @@ export default function RnD() {
               <Ext href="https://www.instagram.com/asdroubis/">profilo Instagram</Ext> è gestito insieme a{' '}
               <Ext href="https://www.instagram.com/matteo.zonch/">Matteo Zonch</Ext>.
             </p>
-            {roubisPosts.length > 0 ? (
-              <ul className="gallery gallery--posts" aria-label="Post Instagram di ASD Roubis">
-                {roubisPosts.map(p => (
-                  <li key={p.id}>
-                    <button
-                      className="gallery__item gallery__item--ext"
-                      onClick={() => setIgPost(p)}
-                      aria-label={`Apri su Instagram il post ${p.label}: ${p.alt}`}
-                    >
-                      <img src={roubisSrc(p.id)} alt={p.alt} width="800" height="800" loading="lazy" decoding="async" />
-                      <span className="gallery__date mono">{p.label}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+            <PhotoLoop photos={roubisPosts} label="Post Instagram di ASD Roubis" onPick={setExtPost} />
           </div>
         </article>
 
@@ -221,12 +268,18 @@ export default function RnD() {
               Partecipazione all’hackathon di Clover Venture a Udine: un problema, un team, poche ore per passare
               dall’idea a qualcosa che funziona.
             </p>
+            <PhotoLoop
+              photos={hackathonPhotos}
+              label="Foto dell’hackathon Clover Venture"
+              onPick={setExtPost}
+              direction="right"
+            />
           </div>
         </article>
       </div>
 
       <Lightbox index={open} onClose={close} onMove={move} />
-      <ExternalConfirm post={igPost} onClose={closeIg} />
+      <ExternalConfirm post={extPost} onClose={closeExt} />
     </section>
   );
 }

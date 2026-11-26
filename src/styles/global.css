@@ -972,7 +972,9 @@ canvas {
 
 .rnd-entry__body {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
+  min-width: 0;
   max-width: 50rem;
 }
 
@@ -1096,33 +1098,62 @@ canvas {
 .lightbox__prev { left: 12px; top: 50%; translate: 0 -50%; }
 .lightbox__next { right: 12px; top: 50%; translate: 0 -50%; }
 
-/* --- Galleria post Instagram (ASD Roubis) --- */
-.gallery--posts {
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+/* --- Nastri di foto R&D (LogoLoop) --- */
+.photo-loop {
+  margin-top: 0.75rem;
 }
 
-.gallery__item--ext {
-  position: relative;
-  cursor: pointer;
+.photo-loop .logoloop__item {
+  font-size: 1rem;
 }
 
-.gallery__item--ext img {
-  aspect-ratio: 1 / 1;
-}
-
-.gallery__date {
-  position: absolute;
-  left: 0.5rem;
-  bottom: 0.5rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
-  background: rgba(11, 11, 13, 0.75);
-  max-width: calc(100% - 1rem);
+.photo-loop__btn {
+  display: block;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
   overflow: hidden;
-  color: var(--text);
-  font-size: 0.65rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease);
+}
+
+.photo-loop .logoloop__item img,
+.photo-loop__btn img {
+  display: block;
+  width: auto;
+  height: var(--photo-loop-h, 220px);
+  filter: saturate(0.85) brightness(0.92);
+  transition: transform 0.6s var(--ease), filter 0.4s var(--ease);
+}
+
+.photo-loop__btn:hover,
+.photo-loop__btn:focus-visible {
+  border-color: var(--accent);
+}
+
+.photo-loop__btn:hover img,
+.photo-loop__btn:focus-visible img {
+  transform: scale(1.05);
+  filter: none;
+}
+
+.photo-loop__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.photo-loop--static {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo-loop--static .photo-loop__btn img {
+  --photo-loop-h: 160px;
 }
 
 /* --- Conferma link esterno --- */
@@ -1364,8 +1395,8 @@ canvas {
     grid-column: 1 / -1;
   }
 
-  .gallery--posts li:first-child {
-    grid-column: auto;
+  .photo-loop {
+    --photo-loop-h: 160px;
   }
 
   .hero__scroll {

@@ -977,7 +977,7 @@ export const LogoLoop = memo(
                 const key = `${copyIndex}-${itemIndex}`;
                 const isNode = 'node' in item;
                 const visual = renderItem ? (
-                  renderItem(item, key)
+                  renderItem(item, key, isPrimary)
                 ) : isNode ? (
                   <span className="logoloop__node" aria-hidden={!!item.href && !item.ariaLabel}>
                     {item.node}
