@@ -100,7 +100,7 @@ function ExternalConfirm({ post, onClose }) {
       {post ? (
         <div className="confirm__box">
           <p className="confirm__kicker mono">Contenuto esterno</p>
-          <h4 id="confirm-title">Aprire il post su Instagram?</h4>
+          <h4 id="confirm-title">Aprire il contenuto su Instagram?</h4>
           <p>
             Stai per lasciare il sito e visitare <b>instagram.com</b>, che potrebbe usare cookie e tracciamento
             secondo le proprie policy.
@@ -201,10 +201,10 @@ export default function RnD() {
                     <button
                       className="gallery__item gallery__item--ext"
                       onClick={() => setIgPost(p)}
-                      aria-label={`Apri il post Instagram del ${fmtDate(p.date)}: ${p.alt}`}
+                      aria-label={`Apri su Instagram: ${p.alt}`}
                     >
                       <img src={roubisSrc(p.id)} alt={p.alt} width="800" height="800" loading="lazy" decoding="async" />
-                      <span className="gallery__date mono">{fmtDate(p.date)}</span>
+                      {p.date ? <span className="gallery__date mono">{fmtDate(p.date)}</span> : null}
                     </button>
                   </li>
                 ))}
