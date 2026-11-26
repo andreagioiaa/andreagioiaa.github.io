@@ -26,27 +26,9 @@ const DownloadIcon = () => (
   </svg>
 );
 
-// Installer in public/downloads (lista generata da vite.config.js al momento della build).
-const PLATFORM = { exe: 'Windows', msi: 'Windows', apk: 'Android' };
-const mb = bytes => `${(bytes / 1048576).toFixed(bytes < 10485760 ? 1 : 0)} MB`;
-
-function downloadsFor(project) {
-  const prefix = project.title.toLowerCase();
-  return __DOWNLOADS__.filter(d => d.file.toLowerCase().startsWith(`${prefix}.`)).map(d => {
-    const ext = d.file.split('.').pop().toLowerCase();
-    return {
-      type: 'download',
-      href: `/downloads/${d.file}`,
-      download: d.file,
-      label: `Scarica per ${PLATFORM[ext]}`,
-      detail: `.${ext} · ${mb(d.size)}`
-    };
-  });
-}
-
 export default function ProjectCard({ project }) {
   const { index, title, kind, repo, problem, solution, stack, flow, featured, media } = project;
-  const links = [...downloadsFor(project), ...(project.links ?? [])];
+  const links = project.links ?? [];
   const headingId = `p-${project.id}`;
 
   return (

@@ -28,9 +28,8 @@ npm run build    # output in dist/
 - Loghi delle competenze (Simple Icons): `src/data/logos.js`
 - Soft skill e AI workflows: `src/data/skills.js`
 - R&D personale (testi e galleria): `src/components/RnD.jsx`, foto in `public/img/*.webp`
-- Installer delle app: `public/downloads/`. Il nome del file inizia con il titolo del progetto
-  (`Lectio.exe`, `CAlcool.apk`, …) e l'estensione decide il pulsante (`.exe`/`.msi` → Windows, `.apk` → Android).
-  Il pulsante compare solo se il file esiste al momento della build; ogni file deve stare sotto i 100 MB.
+- Installer delle app: pubblicati nelle Release dei rispettivi repository (workflow `release.yml`
+  su ogni tag `v*`) e collegati dalle schede con `releases/latest/download/<file>` (campo `links` in `projects.js`).
 - Le vecchie URL (`chi_sono.html`, `projects.html`, `red/*.html`, …) sono redirect alle sezioni della home.
 
 ## Deploy

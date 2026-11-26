@@ -10,7 +10,8 @@
 // `repo: null` indica un repository privato (nessun link al codice).
 // `links` (facoltativo) sono i pulsanti d'azione nell'intestazione della scheda:
 //   { type: 'live', href, label }      -> app online, si apre in una nuova scheda;
-//   { type: 'download', href, label }  -> installer (es. Release GitHub .exe / .apk).
+//   { type: 'download', href, label, detail } -> installer pubblicato nelle Release GitHub
+//      (link releases/latest/download: punta sempre all'ultima versione).
 
 const phone = (name, alt, caption) => ({ name, alt, caption, frame: 'phone', ratio: 9 / 16, sizes: [360, 720] });
 
@@ -53,6 +54,14 @@ export const projects = [
     title: 'Lectio',
     kind: 'Desktop app · Studio offline-first · Python',
     repo: 'https://github.com/andreagioiaa/Lectio',
+    links: [
+      {
+        type: 'download',
+        href: 'https://github.com/andreagioiaa/Lectio/releases/latest/download/Lectio.exe',
+        label: 'Scarica per Windows',
+        detail: 'Lectio.exe · Windows 10/11 64 bit'
+      }
+    ],
     media: {
       layout: 'stage',
       frame: 'window',
@@ -151,6 +160,14 @@ export const projects = [
     title: 'CAlcool',
     kind: 'Mobile app · Offline-first',
     repo: 'https://github.com/andreagioiaa/CAlcool',
+    links: [
+      {
+        type: 'download',
+        href: 'https://github.com/andreagioiaa/CAlcool/releases/latest/download/CAlcool.apk',
+        label: 'Scarica per Android',
+        detail: 'CAlcool.apk · Android'
+      }
+    ],
     media: {
       layout: 'phones',
       label: 'Schermate dell’app Flutter',
