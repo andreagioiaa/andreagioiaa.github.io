@@ -1117,8 +1117,12 @@ canvas {
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
   background: rgba(11, 11, 13, 0.75);
+  max-width: calc(100% - 1rem);
+  overflow: hidden;
   color: var(--text);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* --- Conferma link esterno --- */

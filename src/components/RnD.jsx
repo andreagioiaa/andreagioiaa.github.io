@@ -70,9 +70,6 @@ function Lightbox({ index, onClose, onMove }) {
   );
 }
 
-const fmtDate = d =>
-  new Date(`${d}T12:00:00`).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
-
 /** Chiede conferma prima di lasciare il sito per un contenuto Instagram. */
 function ExternalConfirm({ post, onClose }) {
   const ref = useRef(null);
@@ -100,7 +97,7 @@ function ExternalConfirm({ post, onClose }) {
       {post ? (
         <div className="confirm__box">
           <p className="confirm__kicker mono">Contenuto esterno</p>
-          <h4 id="confirm-title">Aprire il contenuto su Instagram?</h4>
+          <h4 id="confirm-title">Aprire il post su Instagram?</h4>
           <p>
             Stai per lasciare il sito e visitare <b>instagram.com</b>, che potrebbe usare cookie e tracciamento
             secondo le proprie policy.
@@ -195,16 +192,16 @@ export default function RnD() {
               <Ext href="https://www.instagram.com/matteo.zonch/">Matteo Zonch</Ext>.
             </p>
             {roubisPosts.length > 0 ? (
-              <ul className="gallery gallery--posts" aria-label="Post Instagram di ASD Roubis, dal più vecchio">
+              <ul className="gallery gallery--posts" aria-label="Post Instagram di ASD Roubis">
                 {roubisPosts.map(p => (
                   <li key={p.id}>
                     <button
                       className="gallery__item gallery__item--ext"
                       onClick={() => setIgPost(p)}
-                      aria-label={`Apri su Instagram: ${p.alt}`}
+                      aria-label={`Apri su Instagram il post ${p.label}: ${p.alt}`}
                     >
                       <img src={roubisSrc(p.id)} alt={p.alt} width="800" height="800" loading="lazy" decoding="async" />
-                      {p.date ? <span className="gallery__date mono">{fmtDate(p.date)}</span> : null}
+                      <span className="gallery__date mono">{p.label}</span>
                     </button>
                   </li>
                 ))}
