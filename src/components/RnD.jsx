@@ -90,7 +90,7 @@ function useReducedMotion() {
  * Nastro di foto in scorrimento (stesso LogoLoop delle competenze).
  * Ogni foto è un pulsante che chiede conferma prima di aprire il post esterno.
  */
-function PhotoLoop({ photos, label, onPick, direction = 'left' }) {
+function PhotoLoop({ photos, label, onPick, direction = 'left', still = false }) {
   const reduced = useReducedMotion();
 
   const photoButton = (p, focusable = true) => (
@@ -105,7 +105,8 @@ function PhotoLoop({ photos, label, onPick, direction = 'left' }) {
     </button>
   );
 
-  if (reduced) {
+  // Foto ferme: con reduced motion o quando sono troppo poche per un nastro.
+  if (reduced || still) {
     return (
       <ul className="photo-loop photo-loop--static" aria-label={label}>
         {photos.map(p => (
@@ -261,18 +262,25 @@ export default function RnD() {
           <div className="rnd-entry__meta mono">
             <span>Maggio 2026</span>
             <span>Hackathon · Udine</span>
+            <span className="rnd-entry__badge">1° posto</span>
           </div>
           <div className="rnd-entry__body">
             <h3>Hackathon Clover Venture</h3>
             <p className="rnd-entry__lead">
-              Partecipazione all’hackathon di Clover Venture a Udine: un problema, un team, poche ore per passare
-              dall’idea a qualcosa che funziona.
+              Con il <b>Team EonIA</b> abbiamo vinto la challenge proposta da BusForFun.com a Road to New Industries,
+              l’hackathon organizzato da Clover Venture a Udine.
+            </p>
+            <p>
+              La sfida: rendere più semplice e smart la gestione dei viaggi organizzati in bus. Abbiamo sviluppato{' '}
+              <b>e-vento</b>, una piattaforma digitale che si integra con il gestionale aziendale per orchestrare i
+              viaggi in tempo reale. Niente più carta e gruppi WhatsApp: il tour manager coordina tutto da un’unica
+              dashboard centralizzata, con un’esperienza migliore per organizzatori e partecipanti.
             </p>
             <PhotoLoop
               photos={hackathonPhotos}
               label="Foto dell’hackathon Clover Venture"
               onPick={setExtPost}
-              direction="right"
+              still
             />
           </div>
         </article>
