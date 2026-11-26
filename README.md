@@ -23,7 +23,8 @@ npm run build    # output in dist/
 
 ## Contenuti
 
-- Progetti: `src/data/projects.js` (formato Problema → Soluzione architetturale → Tech stack)
+- Progetti: `src/data/projects.js` (formato Vetrina → Problema → Soluzione architetturale → Tech stack)
+- Vetrina grafica dei progetti: `src/components/ProjectShowcase.jsx`, schermate e grafici in `public/img/projects/<id>/*.webp`
 - Loghi delle competenze (Simple Icons): `src/data/logos.js`
 - Soft skill e AI workflows: `src/data/skills.js`
 - R&D personale (testi e galleria): `src/components/RnD.jsx`, foto in `public/img/*.webp`

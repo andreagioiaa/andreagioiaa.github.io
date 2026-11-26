@@ -1,4 +1,5 @@
 import SpotlightCard from './reactbits/SpotlightCard.jsx';
+import ProjectShowcase from './ProjectShowcase.jsx';
 
 const GitHubIcon = () => (
   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
@@ -6,8 +7,15 @@ const GitHubIcon = () => (
   </svg>
 );
 
+const LockIcon = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <rect x="5" y="11" width="14" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" strokeLinecap="round" />
+  </svg>
+);
+
 export default function ProjectCard({ project }) {
-  const { index, title, kind, repo, problem, solution, stack, flow, featured } = project;
+  const { index, title, kind, repo, problem, solution, stack, flow, featured, media } = project;
   const headingId = `p-${project.id}`;
 
   return (
@@ -27,12 +35,21 @@ export default function ProjectCard({ project }) {
           <p className="project__kind mono">{kind}</p>
           <h3 id={headingId} className="project__title">{title}</h3>
         </div>
-        <a className="project__repo" href={repo} target="_blank" rel="noopener noreferrer">
-          <GitHubIcon />
-          <span>Codice</span>
-          <span className="sr-only"> di {title} su GitHub</span>
-        </a>
+        {repo ? (
+          <a className="project__repo" href={repo} target="_blank" rel="noopener noreferrer">
+            <GitHubIcon />
+            <span>Codice</span>
+            <span className="sr-only"> di {title} su GitHub</span>
+          </a>
+        ) : (
+          <span className="project__repo project__repo--private" title="Il codice sorgente è in un repository privato">
+            <LockIcon />
+            <span>Repo privato</span>
+          </span>
+        )}
       </header>
+
+      <ProjectShowcase pid={project.id} media={media} featured={featured} />
 
       <div className="project__body">
         <div className="project__block">
