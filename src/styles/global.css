@@ -1152,10 +1152,6 @@ canvas {
   list-style: none;
 }
 
-.photo-loop--static .photo-loop__btn img {
-  --photo-loop-h: 160px;
-}
-
 /* --- Conferma link esterno --- */
 .confirm {
   width: min(92vw, 440px);
